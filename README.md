@@ -1,79 +1,74 @@
-# example-langserve
-
-## Installation
-
-Install the LangChain CLI if you haven't yet
-
-```bash
-pip install -U langchain-cli
-```
-
-## Adding packages
-
-```bash
-# adding packages from 
-# https://github.com/langchain-ai/langchain/tree/master/templates
-langchain app add $PROJECT_NAME
-
-# adding custom GitHub repo packages
-langchain app add --repo $OWNER/$REPO
-# or with whole git string (supports other git providers):
-# langchain app add git+https://github.com/hwchase17/chain-of-verification
-
-# with a custom api mount point (defaults to `/{package_name}`)
-langchain app add $PROJECT_NAME --api_path=/my/custom/path/rag
-```
-
-Note: you remove packages by their api path
-
-```bash
-langchain app remove my/custom/path/rag
-```
-
-## Setup LangSmith (Optional)
-LangSmith will help us trace, monitor and debug LangChain applications. 
-LangSmith is currently in private beta, you can sign up [here](https://smith.langchain.com/). 
-If you don't have access, you can skip this section
+<div align="center">
+  <a href="https://koyeb.com">
+    <img src="https://www.koyeb.com/static/images/icons/koyeb.svg" alt="Logo" width="80" height="80">
+  </a>
+  <h3 align="center">Koyeb Serverless Platform</h3>
+  <p align="center">
+    Deploy LangServe on Koyeb
+    <br />
+    <a href="https://koyeb.com">Learn more about Koyeb</a>
+    ·
+    <a href="https://koyeb.com/docs">Explore the documentation</a>
+    ·
+    <a href="https://koyeb.com/tutorials">Discover our tutorials</a>
+  </p>
+</div>
 
 
-```shell
-export LANGCHAIN_TRACING_V2=true
-export LANGCHAIN_API_KEY=<your-api-key>
-export LANGCHAIN_PROJECT=<your-project>  # if not specified, defaults to "default"
-```
+## About Koyeb and the LangServe example application
 
-## Launch LangServe
+Koyeb is a developer-friendly serverless platform to deploy apps globally. No-ops, servers, or infrastructure management.
 
-```bash
-langchain serve
-```
+This repository contains is designed to show how LangServe applications can be deployed to Koyeb.  The image that this repository builds serves a LangServe application that uses LangChain to query the OpenAI API.
 
-## Running in Docker
+You can follow the [associated tutorial](https://www.koyeb.com/tutorials/using-langserve-to-build-rest-apis-for-langchain-applications) to learn more about how the example was constructed.
 
-This project folder includes a Dockerfile that allows you to easily build and host your LangServe app.
+## Getting Started
 
-### Building the Image
+Follow the steps below to deploy the LangServe application to your Koyeb account.
 
-To build the image, you simply:
+### Requirements
 
-```shell
-docker build . -t my-langserve-app
-```
+To use this repository, you need:
 
-If you tag your image with something other than `my-langserve-app`,
-note it for use in the next step.
+* A Koyeb account to build the Docker image and run the Dockerized application.  If you don't already have an account, you can [sign-up for free](https://app.koyeb.com/auth/signup).
+* An [OpenAI](https://openai.com/) API key so that our application can send queries to OpenAI.
 
-### Running the Image Locally
+### Deploy using the Koyeb button
 
-To run the image, you'll need to include any environment variables
-necessary for your application.
+The fastest way to deploy the LangServe application is to click the **Deploy to Koyeb** button below.
 
-In the below example, we inject the `OPENAI_API_KEY` environment
-variable with the value set in my local environment
-(`$OPENAI_API_KEY`)
+[![Deploy to Koyeb](https://www.koyeb.com/static/images/deploy/button.svg)](https://app.koyeb.com/deploy?name=example-langserve&type=git&repository=koyeb%2Fexample-langserve&branch=main&builder=dockerfile&env%5BOPENAI_API_KEY%5D=CHANGE_ME&ports=8000%3Bhttp%3B%2F)
 
-We also expose port 8080 with the `-p 8080:8080` option.
+Clicking on this button brings you to the Koyeb App creation page with most of the settings pre-configured to launch this application.  You will need to replace the value for the following variable:
 
-```shell
-docker run -e OPENAI_API_KEY=$OPENAI_API_KEY -p 8080:8080 my-langserve-app
-```
+* `OPENAI_API_KEY`: Set to your OpenAI API key.
+
+_To modify this application example, you will need to fork this repository. Checkout the [fork and deploy](#fork-and-deploy-to-koyeb) instructions._
+
+### Fork and deploy to Koyeb
+
+If you want to customize and enhance this application, you need to fork this repository.
+
+If you used the **Deploy to Koyeb** button, you can simply link your service to your forked repository to be able to push changes.  Alternatively, you can manually create the application as described below.
+
+On the [Koyeb Control Panel](https://app.koyeb.com/), click the **Create App** button to go to the App creation page.
+
+1. Click **Create App** in the Koyeb control panel.
+2. Select **GitHub** as the deployment option.
+3. Choose the GitHub **repository** and **branch** containing your application code.
+4. Name your service, for example `example-langserve`.
+5. Select **Dockerfile** as the builder for the project.
+6. Expand the **Advanced** section and click **Add Variable** to configure a new environment variable.  Create a variable called `OPENAI_API_KEY`.  Select the **Secret** type and choose **Create secret** in the value.  In the form that appears, create a new secret containing your OpenAI API key.
+6. Name the App, for example `example-langserve`.
+7. Click the **Deploy** button.
+
+A container image for the LangServe application will be built and a container will be deployed to Koyeb.  You can follow the build process as the repository is cloned, built, and deployed.  Once the deployment is complete, it will be accessible using the Koyeb subdomain for your service.  Visit the URL with `/openai/playground` appended to view the prompt interface.
+
+## Contributing
+
+If you have any questions, ideas or suggestions regarding this application sample, feel free to open an [issue](//github.com/koyeb/example-langserve/issues) or fork this repository and open a [pull request](//github.com/koyeb/example-langserve/pulls).
+
+## Contact
+
+[Koyeb](https://www.koyeb.com) - [@gokoyeb](https://twitter.com/gokoyeb) - [Slack](http://slack.koyeb.com/)
