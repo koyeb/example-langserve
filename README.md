@@ -52,16 +52,13 @@ If you want to customize and enhance this application, you need to fork this rep
 
 If you used the **Deploy to Koyeb** button, you can simply link your service to your forked repository to be able to push changes.  Alternatively, you can manually create the application as described below.
 
-On the [Koyeb Control Panel](https://app.koyeb.com/), click the **Create App** button to go to the App creation page.
+On the [Koyeb Control Panel](https://app.koyeb.com/), on the **Overview** tab, click the **Create Web Service** button to begin.
 
-1. Click **Create App** in the Koyeb control panel.
-2. Select **GitHub** as the deployment option.
-3. Choose the GitHub **repository** and **branch** containing your application code.
-4. Name your service, for example `example-langserve`.
-5. Select **Dockerfile** as the builder for the project.
-6. Expand the **Advanced** section and click **Add Variable** to configure a new environment variable.  Create a variable called `OPENAI_API_KEY`.  Select the **Secret** type and choose **Create secret** in the value.  In the form that appears, create a new secret containing your OpenAI API key.
-6. Name the App, for example `example-langserve`.
-7. Click the **Deploy** button.
+1. Select **GitHub** as the deployment method.
+2. Choose the GitHub repository and branch containing your application code.
+3. In the **Builder** section, celect **Dockerfile**.
+4. Expand the **Environment variables** section and click **Add variable** to configure a new environment variable.  Create a variable called `OPENAI_API_KEY`.  Select the **Secret** type and choose **Create secret** in the value.  In the form that appears, create a new secret containing your OpenAI API key.
+5. Choose a name for your App and Service, i.e. `example-langserve`, and click **Deploy**.
 
 A container image for the LangServe application will be built and a container will be deployed to Koyeb.  You can follow the build process as the repository is cloned, built, and deployed.  Once the deployment is complete, it will be accessible using the Koyeb subdomain for your service.  Visit the URL with `/openai/playground` appended to view the prompt interface.
 
